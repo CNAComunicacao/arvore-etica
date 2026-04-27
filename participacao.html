@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Árvore da Ética – Participação</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --vd:#1a4a2e;--vm:#2d7a4f;--vc:#4caf7d;--do:#c9a84c;
+  --te:#7a4f2d;--cr:#f5f0e8;--wh:#ffffff;
+}
+body{font-family:'Lato',sans-serif;background:var(--cr);min-height:100vh;display:flex;flex-direction:column;align-items:center;}
+.header{width:100%;background:linear-gradient(135deg,var(--vd),var(--vm));padding:2rem 1rem 1.5rem;text-align:center;color:white;}
+.header h1{font-family:'Playfair Display',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;letter-spacing:.02em;margin-bottom:.4rem;}
+.header p{font-size:.95rem;opacity:.85;font-weight:300;letter-spacing:.05em;text-transform:uppercase;}
+.badge-dia{display:inline-block;background:var(--do);color:var(--vd);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;padding:.3rem 1rem;border-radius:20px;margin-bottom:1rem;}
+.container{width:100%;max-width:560px;padding:2rem 1.5rem;display:flex;flex-direction:column;gap:1.5rem;}
+.card{background:white;border-radius:16px;padding:1.5rem;box-shadow:0 2px 12px rgba(26,74,46,.08);}
+.card-accent{border-left:4px solid var(--vc);}
+.card h2{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--vd);margin-bottom:.6rem;}
+.card p{font-size:.9rem;color:#555;line-height:1.6;}
+.stats-bar{background:white;border-radius:12px;padding:1rem 1.5rem;display:flex;justify-content:space-around;box-shadow:0 2px 12px rgba(26,74,46,.08);}
+.stat-item{text-align:center;}
+.stat-num{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--vd);font-weight:700;line-height:1;}
+.stat-label{font-size:.72rem;color:#888;text-transform:uppercase;letter-spacing:.07em;margin-top:.2rem;}
+.form-group{margin-bottom:1rem;}
+.form-group label{display:block;font-size:.82rem;font-weight:700;color:var(--vd);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem;}
+.form-group input,.form-group select{width:100%;padding:.75rem 1rem;border:1.5px solid #ddd;border-radius:10px;font-family:'Lato',sans-serif;font-size:.95rem;color:#333;background:#fafafa;transition:border-color .2s;outline:none;-webkit-appearance:none;}
+.form-group input:focus,.form-group select:focus{border-color:var(--vc);background:white;}
+.valores-hint{background:#f0f8f0;border-radius:10px;padding:.8rem 1rem;margin-bottom:.8rem;}
+.valores-hint p{font-size:.8rem;color:var(--vd);margin-bottom:.4rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;}
+.exemplos{display:flex;flex-wrap:wrap;gap:.4rem;}
+.ex-tag{background:white;border:1px solid var(--vc);color:var(--vd);padding:.2rem .6rem;border-radius:20px;font-size:.8rem;cursor:pointer;transition:background .2s;}
+.ex-tag:hover{background:var(--vc);color:white;}
+.word-input-row{display:flex;gap:.5rem;width:100%;}
+.word-input-row input{flex:1;}
+.btn-add{background:var(--vc);color:white;border:none;border-radius:10px;padding:.75rem 1rem;font-size:1.2rem;cursor:pointer;transition:background .2s,transform .1s;flex-shrink:0;}
+.btn-add:hover{background:var(--vm);transform:scale(1.05);}
+.btn-add:active{transform:scale(.97);}
+.word-counter{font-size:.8rem;color:#888;margin:.5rem 0 .5rem;}
+.words-area{display:flex;flex-wrap:wrap;gap:.4rem;min-height:28px;}
+.word-tag{display:inline-flex;align-items:center;gap:.4rem;background:var(--vc);color:white;padding:.4rem .8rem;border-radius:20px;font-size:.85rem;font-weight:700;animation:popIn .3s ease;}
+@keyframes popIn{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.word-tag button{background:none;border:none;color:rgba(255,255,255,.8);cursor:pointer;font-size:1rem;padding:0;line-height:1;}
+.word-tag button:hover{color:white;}
+.btn-submit{width:100%;padding:1rem;background:linear-gradient(135deg,var(--vd),var(--vm));color:white;border:none;border-radius:12px;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;cursor:pointer;letter-spacing:.03em;transition:opacity .2s,transform .1s;margin-top:.5rem;}
+.btn-submit:hover{opacity:.92;transform:translateY(-1px);}
+.btn-submit:active{transform:translateY(0);}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.msg-erro{background:#fff0f0;border:1px solid #f5c0c0;color:#c0392b;border-radius:8px;padding:.7rem 1rem;font-size:.85rem;display:none;margin-top:.5rem;}
+.success-card{background:linear-gradient(135deg,var(--vd),var(--vm));border-radius:16px;padding:2rem;text-align:center;color:white;display:none;}
+.success-card .icon{font-size:3rem;margin-bottom:1rem;}
+.success-card h2{font-family:'Playfair Display',serif;font-size:1.4rem;margin-bottom:.6rem;}
+.success-card p{font-size:.9rem;opacity:.85;line-height:1.5;}
+.footer-note{text-align:center;font-size:.78rem;color:#aaa;padding-bottom:2rem;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge-dia">Dia Nacional da Ética</div>
+  <h1>Construindo Nossa Árvore da Ética</h1>
+  <p>Sua palavra faz parte do nosso legado</p>
+</div>
+
+<div class="container">
+
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num" id="cntPalavras">0</div><div class="stat-label">palavras</div></div>
+    <div class="stat-item"><div class="stat-num" id="cntEscolas">0</div><div class="stat-label">escolas</div></div>
+    <div class="stat-item"><div class="stat-num" id="cntPessoas">0</div><div class="stat-label">participantes</div></div>
+  </div>
+
+  <div class="card card-accent">
+    <h2>Como participar</h2>
+    <p>Escreva palavras que representam valores éticos e comportamentos que fazem parte do nosso legado. Elas vão compor a <strong>copa da nossa árvore colaborativa</strong>, exibida ao vivo durante o evento.</p>
+  </div>
+
+  <div class="card" id="formCard">
+    <h2>Contribua com sua escola</h2>
+
+    <div class="form-group">
+      <label>Nome da escola / unidade</label>
+      <input type="text" id="nomeEscola" placeholder="Ex: Escola Municipal João da Silva" maxlength="80"/>
+    </div>
+
+    <div class="form-group">
+      <label>Suas palavras para a copa</label>
+      <div class="valores-hint">
+        <p>Sugestões — clique para adicionar:</p>
+        <div class="exemplos">
+          <span class="ex-tag" onclick="addExemplo('Respeito')">Respeito</span>
+          <span class="ex-tag" onclick="addExemplo('Honestidade')">Honestidade</span>
+          <span class="ex-tag" onclick="addExemplo('Empatia')">Empatia</span>
+          <span class="ex-tag" onclick="addExemplo('Integridade')">Integridade</span>
+          <span class="ex-tag" onclick="addExemplo('Solidariedade')">Solidariedade</span>
+          <span class="ex-tag" onclick="addExemplo('Justiça')">Justiça</span>
+          <span class="ex-tag" onclick="addExemplo('Responsabilidade')">Responsabilidade</span>
+          <span class="ex-tag" onclick="addExemplo('Transparência')">Transparência</span>
+          <span class="ex-tag" onclick="addExemplo('Comprometimento')">Comprometimento</span>
+          <span class="ex-tag" onclick="addExemplo('Coragem')">Coragem</span>
+        </div>
+      </div>
+      <div class="word-input-row">
+        <input type="text" id="wordInput" placeholder="Digite uma palavra ou valor..." maxlength="30"
+          onkeydown="if(event.key==='Enter'){event.preventDefault();addPalavra();}"/>
+        <button class="btn-add" onclick="addPalavra()">+</button>
+      </div>
+      <div class="word-counter" id="wordCounter">0 / 5 palavras adicionadas</div>
+      <div class="words-area" id="wordsArea"></div>
+    </div>
+
+    <div class="msg-erro" id="msgErro"></div>
+    <button class="btn-submit" id="btnEnviar" onclick="enviar()">🌿 Plantar na Árvore</button>
+  </div>
+
+  <div class="success-card" id="successCard">
+    <div class="icon">🌳</div>
+    <h2>Contribuição plantada!</h2>
+    <p>Suas palavras já fazem parte da copa da nossa árvore colaborativa. Acompanhe ao vivo no painel do evento.</p>
+  </div>
+
+  <p class="footer-note">Dia Nacional da Ética · Participação colaborativa</p>
+</div>
+
+<script>
+// ─── CONFIGURAÇÃO DO FIREBASE ───────────────────────────────────────────────
+// Substitua os valores abaixo pelos do seu projeto Firebase (veja instruções no README)
+const FIREBASE_URL = 'https://arvore-etica-default-rtdb.firebaseio.com';
+// ────────────────────────────────────────────────────────────────────────────
+
+let palavras = [];
+
+function addExemplo(p) {
+  if (palavras.length >= 5) return erro('Máximo de 5 palavras por participação.');
+  if (palavras.map(x=>x.toLowerCase()).includes(p.toLowerCase())) return;
+  palavras.push(p);
+  render();
+}
+
+function addPalavra() {
+  const inp = document.getElementById('wordInput');
+  const v = inp.value.trim();
+  if (!v) return;
+  if (palavras.length >= 5) return erro('Máximo de 5 palavras por participação.');
+  if (palavras.map(x=>x.toLowerCase()).includes(v.toLowerCase())) return erro('Palavra já adicionada.');
+  if (!/^[a-zA-ZÀ-ÿ\s\-]+$/.test(v)) return erro('Use apenas letras.');
+  palavras.push(v.charAt(0).toUpperCase()+v.slice(1).toLowerCase());
+  inp.value='';
+  document.getElementById('msgErro').style.display='none';
+  render();
+}
+
+function render() {
+  const area = document.getElementById('wordsArea');
+  area.innerHTML='';
+  palavras.forEach((p,i)=>{
+    const t=document.createElement('span');
+    t.className='word-tag';
+    t.innerHTML=p+'<button onclick="rem('+i+')">×</button>';
+    area.appendChild(t);
+  });
+  document.getElementById('wordCounter').textContent=palavras.length+' / 5 palavras adicionadas';
+}
+
+function rem(i){ palavras.splice(i,1); render(); }
+
+function erro(msg){
+  const el=document.getElementById('msgErro');
+  el.textContent=msg; el.style.display='block';
+  setTimeout(()=>el.style.display='none',3000);
+}
+
+async function carregarStats() {
+  try {
+    const r = await fetch(FIREBASE_URL+'/contribuicoes.json');
+    const dados = await r.json();
+    if (!dados) { ['cntPalavras','cntEscolas','cntPessoas'].forEach(id=>document.getElementById(id).textContent='0'); return; }
+    const lista = Object.values(dados);
+    const totalP = lista.reduce((s,x)=>s+(x.palavras||[]).length,0);
+    const escolas = new Set(lista.map(x=>x.escola.toLowerCase())).size;
+    document.getElementById('cntPalavras').textContent=totalP;
+    document.getElementById('cntEscolas').textContent=escolas;
+    document.getElementById('cntPessoas').textContent=lista.length;
+  } catch(e){ console.warn('stats',e); }
+}
+
+async function enviar() {
+  const escola = document.getElementById('nomeEscola').value.trim();
+  if (!escola) return erro('Por favor, informe o nome da escola.');
+  if (palavras.length===0) return erro('Adicione ao menos uma palavra.');
+  const btn=document.getElementById('btnEnviar');
+  btn.disabled=true; btn.textContent='Plantando...';
+  try {
+    await fetch(FIREBASE_URL+'/contribuicoes.json',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({escola,palavras,ts:Date.now()})
+    });
+    document.getElementById('formCard').style.display='none';
+    document.getElementById('successCard').style.display='block';
+    carregarStats();
+  } catch(e){
+    btn.disabled=false; btn.textContent='🌿 Plantar na Árvore';
+    erro('Erro ao enviar. Verifique sua conexão.');
+  }
+}
+
+carregarStats();
+setInterval(carregarStats,10000);
+</script>
+</body>
+</html>

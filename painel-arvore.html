@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Árvore da Ética – Painel ao Vivo</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:'Lato',sans-serif;
+  background:#0d1f14;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  color:#f5f0e8;
+}
+.topo{
+  width:100%;text-align:center;
+  padding:1.2rem 1rem .8rem;
+  background:rgba(0,0,0,.35);
+}
+.badge{
+  display:inline-block;background:#c9a84c;color:#0d1f14;
+  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:.3rem 1rem;border-radius:20px;margin-bottom:.5rem;
+}
+.topo h1{
+  font-family:'Playfair Display',serif;
+  color:#f5f0e8;font-size:clamp(1.1rem,3.5vw,1.7rem);font-weight:700;
+}
+.stats-row{display:flex;justify-content:center;gap:2.5rem;padding:.8rem 0 .4rem;flex-wrap:wrap;}
+.stat-n{font-family:'Playfair Display',serif;font-size:1.7rem;color:#6dbf8a;font-weight:700;line-height:1;}
+.stat-l{font-size:.65rem;color:rgba(245,240,232,.45);text-transform:uppercase;letter-spacing:.08em;}
+
+.arena{width:100%;max-width:700px;padding:0 .5rem;display:flex;flex-direction:column;align-items:center;}
+
+/* COPA */
+.copa-container{
+  width:100%;min-height:240px;position:relative;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:.5rem;
+}
+.copa-bg{position:absolute;top:0;left:50%;transform:translateX(-50%);width:92%;max-width:520px;}
+.nuvem{
+  position:relative;z-index:2;
+  width:88%;max-width:500px;min-height:210px;
+  display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
+  gap:.35rem .6rem;padding:2.8rem 2.2rem 2.2rem;
+}
+.palavra{
+  display:inline-block;font-weight:700;letter-spacing:.02em;
+  opacity:0;transform:scale(.5);
+  animation:popIn .5s ease forwards;
+  text-shadow:0 1px 5px rgba(0,0,0,.6);
+  cursor:default;transition:transform .15s;
+}
+.palavra:hover{transform:scale(1.12);}
+@keyframes popIn{to{opacity:1;transform:scale(1);}}
+.empty-copa{color:rgba(245,240,232,.3);font-size:.88rem;text-align:center;padding:2rem;font-style:italic;line-height:1.6;}
+
+/* TRONCO */
+.tronco-wrap{width:100%;display:flex;justify-content:center;margin:-1rem 0 0;position:relative;z-index:3;}
+
+/* RAÍZES */
+.raizes-wrap{width:100%;max-width:600px;padding:0 .8rem 1.5rem;z-index:3;}
+.raizes-titulo{text-align:center;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,240,232,.35);margin-bottom:.6rem;}
+.raizes-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem;}
+.raiz{
+  background:rgba(42,82,50,.8);color:#a8d8b8;
+  border:1px solid rgba(109,191,138,.3);
+  padding:.35rem .85rem;border-radius:20px;
+  font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+}
+
+.live-label{
+  font-size:.68rem;color:rgba(245,240,232,.4);
+  text-align:center;padding:.5rem 0 1.2rem;
+  letter-spacing:.08em;text-transform:uppercase;
+}
+.live-dot{
+  display:inline-block;width:7px;height:7px;
+  background:#4caf7d;border-radius:50%;margin-right:.4rem;
+  animation:pulsar 1.2s infinite;
+}
+@keyframes pulsar{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.65);}}
+</style>
+</head>
+<body>
+
+<div class="topo">
+  <div class="badge">Dia Nacional da Ética · Ao Vivo</div>
+  <h1>Nossa Árvore Colaborativa da Ética</h1>
+  <div class="stats-row">
+    <div class="stat-item"><div class="stat-n" id="lP">0</div><div class="stat-l">palavras</div></div>
+    <div class="stat-item"><div class="stat-n" id="lE">0</div><div class="stat-l">escolas</div></div>
+    <div class="stat-item"><div class="stat-n" id="lPe">0</div><div class="stat-l">participantes</div></div>
+  </div>
+</div>
+
+<div class="arena">
+
+  <!-- COPA -->
+  <div class="copa-container">
+    <svg class="copa-bg" viewBox="0 0 520 230" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="260" cy="140" rx="245" ry="115" fill="#1a4a2e" opacity=".88"/>
+      <ellipse cx="150" cy="115" rx="115" ry="82" fill="#1e5535" opacity=".72"/>
+      <ellipse cx="390" cy="108" rx="125" ry="92" fill="#1e5535" opacity=".72"/>
+      <ellipse cx="260" cy="82" rx="135" ry="76" fill="#2d7a4f" opacity=".62"/>
+    </svg>
+    <div class="nuvem" id="nuvem">
+      <p class="empty-copa">Aguardando as primeiras contribuições...<br>As palavras das escolas aparecerão aqui em tempo real.</p>
+    </div>
+  </div>
+
+  <!-- TRONCO -->
+  <div class="tronco-wrap">
+    <svg viewBox="0 0 200 120" width="210" xmlns="http://www.w3.org/2000/svg">
+      <path d="M80 0 Q75 55 63 120 L137 120 Q125 55 120 0 Z" fill="#5a3010"/>
+      <path d="M90 0 Q87 52 80 120 L106 120 Q100 52 97 0 Z" fill="#7a4f2d" opacity=".6"/>
+      <path d="M85 22 Q96 28 85 38" stroke="#3d200a" fill="none" stroke-width="1.5" opacity=".5"/>
+      <path d="M96 54 Q108 60 96 70" stroke="#3d200a" fill="none" stroke-width="1.5" opacity=".5"/>
+      <text x="100" y="38" text-anchor="middle" font-family="'Playfair Display',serif" font-size="6.2" fill="#f5f0e8" font-weight="700" opacity=".92">Nossas ações</text>
+      <text x="100" y="51" text-anchor="middle" font-family="'Playfair Display',serif" font-size="6.2" fill="#f5f0e8" font-weight="700" opacity=".92">construindo</text>
+      <text x="100" y="64" text-anchor="middle" font-family="'Playfair Display',serif" font-size="6.2" fill="#c9a84c" font-weight="700">nosso legado</text>
+    </svg>
+  </div>
+
+  <!-- RAÍZES -->
+  <div class="raizes-wrap">
+    <div class="raizes-titulo">— Nossas raízes —</div>
+    <div class="raizes-grid">
+      <span class="raiz">Respeito</span>
+      <span class="raiz">Honestidade</span>
+      <span class="raiz">Integridade</span>
+      <span class="raiz">Responsabilidade</span>
+      <span class="raiz">Empatia</span>
+      <span class="raiz">Solidariedade</span>
+      <span class="raiz">Transparência</span>
+      <span class="raiz">Justiça</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="live-label"><span class="live-dot"></span>Atualizando ao vivo a cada 8 segundos</div>
+
+<script>
+// ─── CONFIGURAÇÃO DO FIREBASE ───────────────────────────────────────────────
+// Substitua pelo URL do seu projeto Firebase (mesmo valor do participacao.html)
+const FIREBASE_URL = 'https://arvore-etica-default-rtdb.firebaseio.com';
+// ────────────────────────────────────────────────────────────────────────────
+
+const CORES=[
+  '#f5f0e8','#c9e8b0','#ffd97d','#a8ddd8','#f9b99f',
+  '#d4e8c2','#ffe8b0','#c2d4f0','#f5c6e0','#b8e8c8',
+  '#ffffff','#e8f5c8','#ffeebb','#cce8ff','#ffe0cc'
+];
+const SIZES=['0.75rem','0.85rem','0.95rem','1.05rem','1.2rem','1.35rem','1.5rem','1.7rem','1.9rem','2.1rem','2.4rem'];
+let exibidas = new Set();
+
+function tamanho(freq, max){
+  const idx = Math.min(Math.floor((freq/Math.max(max,1))*(SIZES.length-1)), SIZES.length-1);
+  return SIZES[Math.max(idx,2)];
+}
+
+async function atualizar(){
+  try{
+    const r = await fetch(FIREBASE_URL+'/contribuicoes.json');
+    const dados = await r.json();
+    const lista = dados ? Object.values(dados) : [];
+
+    const freq={};
+    lista.forEach(c=>(c.palavras||[]).forEach(p=>{
+      const k=p.charAt(0).toUpperCase()+p.slice(1).toLowerCase();
+      freq[k]=(freq[k]||0)+1;
+    }));
+
+    const totalP=Object.values(freq).reduce((s,v)=>s+v,0);
+    const escolas=new Set(lista.map(x=>x.escola.toLowerCase())).size;
+    document.getElementById('lP').textContent=totalP;
+    document.getElementById('lE').textContent=escolas;
+    document.getElementById('lPe').textContent=lista.length;
+
+    const entradas=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
+    const maxF=entradas.length>0?entradas[0][1]:1;
+    const novas=entradas.filter(([p])=>!exibidas.has(p));
+
+    const nuvem=document.getElementById('nuvem');
+    if(entradas.length===0) return;
+    if(nuvem.querySelector('.empty-copa')) nuvem.innerHTML='';
+
+    novas.forEach(([palavra,fv],i)=>{
+      const el=document.createElement('span');
+      el.className='palavra';
+      el.textContent=palavra;
+      el.style.color=CORES[Math.floor(Math.random()*CORES.length)];
+      el.style.fontSize=tamanho(fv,maxF);
+      el.style.animationDelay=(i*.1)+'s';
+      nuvem.appendChild(el);
+      exibidas.add(palavra);
+    });
+
+    // atualizar tamanhos de palavras já exibidas
+    entradas.forEach(([palavra,fv])=>{
+      nuvem.querySelectorAll('.palavra').forEach(el=>{
+        if(el.textContent===palavra) el.style.fontSize=tamanho(fv,maxF);
+      });
+    });
+
+  }catch(e){console.warn(e);}
+}
+
+atualizar();
+setInterval(atualizar,8000);
+</script>
+</body>
+</html>
