@@ -3,143 +3,210 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Árvore da Ética – Painel ao Vivo</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+<title>Árvore dos Valores CNA – Painel ao Vivo</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-body{
-  font-family:'Lato',sans-serif;
-  background:#0d1f14;
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  color:#f5f0e8;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  background: #3da0d8;
 }
-.topo{
-  width:100%;text-align:center;
-  padding:1.2rem 1rem .8rem;
-  background:rgba(0,0,0,.35);
+.header {
+  width: 100%;
+  background: #c8102e;
+  padding: 1rem 1rem 0.9rem;
+  text-align: center;
+  border-bottom: 3px solid #8b0a1f;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
 }
-.badge{
-  display:inline-block;background:#c9a84c;color:#0d1f14;
-  font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
-  padding:.3rem 1rem;border-radius:20px;margin-bottom:.5rem;
+.header-titulo {
+  font-family: Arial, sans-serif;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
 }
-.topo h1{
-  font-family:'Playfair Display',serif;
-  color:#f5f0e8;font-size:clamp(1.1rem,3.5vw,1.7rem);font-weight:700;
+.header-sub {
+  font-size: 16px;
+  color: rgba(255,255,255,0.82);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
 }
-.stats-row{display:flex;justify-content:center;gap:2.5rem;padding:.8rem 0 .4rem;flex-wrap:wrap;}
-.stat-n{font-family:'Playfair Display',serif;font-size:1.7rem;color:#6dbf8a;font-weight:700;line-height:1;}
-.stat-l{font-size:.65rem;color:rgba(245,240,232,.45);text-transform:uppercase;letter-spacing:.08em;}
-
-.arena{width:100%;max-width:700px;padding:0 .5rem;display:flex;flex-direction:column;align-items:center;}
-
-/* COPA */
-.copa-container{
-  width:100%;min-height:240px;position:relative;
-  display:flex;align-items:center;justify-content:center;
-  margin-top:.5rem;
+.cena {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #3da0d8 0%, #7ecbf2 40%, #b0d8f0 100%);
 }
-.copa-bg{position:absolute;top:0;left:50%;transform:translateX(-50%);width:92%;max-width:520px;}
-.nuvem{
-  position:relative;z-index:2;
-  width:88%;max-width:500px;min-height:210px;
-  display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
-  gap:.35rem .6rem;padding:2.8rem 2.2rem 2.2rem;
-}
-.palavra{
-  display:inline-block;font-weight:700;letter-spacing:.02em;
-  opacity:0;transform:scale(.5);
-  animation:popIn .5s ease forwards;
-  text-shadow:0 1px 5px rgba(0,0,0,.6);
-  cursor:default;transition:transform .15s;
-}
-.palavra:hover{transform:scale(1.12);}
-@keyframes popIn{to{opacity:1;transform:scale(1);}}
-.empty-copa{color:rgba(245,240,232,.3);font-size:.88rem;text-align:center;padding:2rem;font-style:italic;line-height:1.6;}
-
-/* TRONCO */
-.tronco-wrap{width:100%;display:flex;justify-content:center;margin:-1rem 0 0;position:relative;z-index:3;}
-
-/* RAÍZES */
-.raizes-wrap{width:100%;max-width:600px;padding:0 .8rem 1.5rem;z-index:3;}
-.raizes-titulo{text-align:center;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(245,240,232,.35);margin-bottom:.6rem;}
-.raizes-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem;}
-.raiz{
-  background:rgba(42,82,50,.8);color:#a8d8b8;
-  border:1px solid rgba(109,191,138,.3);
-  padding:.35rem .85rem;border-radius:20px;
-  font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
-}
-
-.live-label{
-  font-size:.68rem;color:rgba(245,240,232,.4);
-  text-align:center;padding:.5rem 0 1.2rem;
-  letter-spacing:.08em;text-transform:uppercase;
-}
-.live-dot{
-  display:inline-block;width:7px;height:7px;
-  background:#4caf7d;border-radius:50%;margin-right:.4rem;
-  animation:pulsar 1.2s infinite;
-}
-@keyframes pulsar{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.35;transform:scale(.65);}}
+.ceu-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.espaco-ceu { width: 100%; height: 140px; flex-shrink: 0; position: relative; z-index: 2; }
+.copa-wrap { width: 100%; position: relative; display: flex; justify-content: center; align-items: flex-end; min-height: 290px; z-index: 2; }
+.copa-svg { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 96%; max-width: 540px; pointer-events: none; }
+.nuvem { position: relative; z-index: 3; width: 76%; max-width: 440px; min-height: 250px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.3rem 0.6rem; padding: 3.4rem 2rem 3rem; margin-bottom: 0.3rem; }
+.palavra { display: inline-block; font-family: Arial, sans-serif; font-size: 16px; font-weight: 700; color: #f5f5e8; opacity: 0; transform: scale(0.4); animation: aparecer 0.6s ease forwards; text-shadow: 0 1px 5px rgba(0,0,0,0.65); cursor: default; transition: transform 0.15s; }
+.palavra:hover { transform: scale(1.1); }
+@keyframes aparecer { to { opacity:1; transform:scale(1); } }
+.copa-vazia { color: rgba(255,255,255,0.55); font-size: 16px; font-family: Arial, sans-serif; text-align: center; font-style: italic; line-height: 1.7; padding: 1.5rem; }
+.tronco-wrap { width: 100%; display: flex; justify-content: center; position: relative; z-index: 4; margin-bottom: -6px; }
+.solo-wrap { width: 100%; position: relative; z-index: 3; flex-shrink: 0; background: #3d2008; }
+.solo-wrap svg { display: block; width: 100%; }
+.live-label { font-size: 16px; color: rgba(255,255,255,0.7); text-align: center; padding: 0.5rem 0 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; background: #3d2008; width: 100%; font-family: Arial, sans-serif; flex-shrink: 0; position: relative; z-index: 5; }
+.live-dot { display: inline-block; width: 7px; height: 7px; background: #7ecb95; border-radius: 50%; margin-right: 0.4rem; animation: pulsar 1.3s infinite; }
+@keyframes pulsar { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.3;transform:scale(0.6);} }
 </style>
 </head>
 <body>
 
-<div class="topo">
-  <div class="badge">Dia Nacional da Ética · Ao Vivo</div>
-  <h1>Nossa Árvore Colaborativa da Ética</h1>
-  <div class="stats-row">
-    <div class="stat-item"><div class="stat-n" id="lP">0</div><div class="stat-l">palavras</div></div>
-    <div class="stat-item"><div class="stat-n" id="lE">0</div><div class="stat-l">escolas</div></div>
-    <div class="stat-item"><div class="stat-n" id="lPe">0</div><div class="stat-l">participantes</div></div>
-  </div>
+<div class="header">
+  <div class="header-titulo">Árvore dos Valores CNA</div>
+  <div class="header-sub">2 de maio &nbsp;·&nbsp; Dia Nacional da Ética</div>
 </div>
 
-<div class="arena">
+<div class="cena">
 
-  <!-- COPA -->
-  <div class="copa-container">
-    <svg class="copa-bg" viewBox="0 0 520 230" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="260" cy="140" rx="245" ry="115" fill="#1a4a2e" opacity=".88"/>
-      <ellipse cx="150" cy="115" rx="115" ry="82" fill="#1e5535" opacity=".72"/>
-      <ellipse cx="390" cy="108" rx="125" ry="92" fill="#1e5535" opacity=".72"/>
-      <ellipse cx="260" cy="82" rx="135" ry="76" fill="#2d7a4f" opacity=".62"/>
+  <svg class="ceu-bg" viewBox="0 0 680 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="gc" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#3da0d8"/>
+        <stop offset="55%" stop-color="#7ecbf2"/>
+        <stop offset="100%" stop-color="#b8ddf5"/>
+      </linearGradient>
+      <linearGradient id="gso" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#7a4520"/>
+        <stop offset="35%" stop-color="#5c3310"/>
+        <stop offset="100%" stop-color="#3d2008"/>
+      </linearGradient>
+    </defs>
+    <rect width="680" height="800" fill="url(#gc)"/>
+    <circle cx="618" cy="80" r="50" fill="#fada3a" opacity="0.97"/>
+    <circle cx="618" cy="80" r="60" fill="#fada3a" opacity="0.16"/>
+    <circle cx="618" cy="80" r="72" fill="#fada3a" opacity="0.09"/>
+    <g stroke="#fada3a" stroke-width="3.5" opacity="0.5" stroke-linecap="round">
+      <line x1="618" y1="12" x2="618" y2="0"/><line x1="618" y1="148" x2="618" y2="160"/>
+      <line x1="550" y1="80" x2="538" y2="80"/><line x1="686" y1="80" x2="698" y2="80"/>
+      <line x1="570" y1="32" x2="562" y2="24"/><line x1="666" y1="128" x2="674" y2="136"/>
+      <line x1="666" y1="32" x2="674" y2="24"/><line x1="570" y1="128" x2="562" y2="136"/>
+    </g>
+    <g opacity="0.94"><ellipse cx="92" cy="75" rx="56" ry="31" fill="white"/><ellipse cx="133" cy="62" rx="46" ry="36" fill="white"/><ellipse cx="166" cy="71" rx="42" ry="28" fill="white"/><ellipse cx="116" cy="88" rx="68" ry="23" fill="white"/><ellipse cx="48" cy="80" rx="36" ry="22" fill="white"/></g>
+    <g opacity="0.86"><ellipse cx="300" cy="50" rx="44" ry="24" fill="white"/><ellipse cx="336" cy="40" rx="38" ry="30" fill="white"/><ellipse cx="365" cy="49" rx="34" ry="22" fill="white"/><ellipse cx="315" cy="62" rx="52" ry="20" fill="white"/><ellipse cx="265" cy="55" rx="30" ry="18" fill="white"/></g>
+    <g opacity="0.72"><ellipse cx="490" cy="32" rx="34" ry="18" fill="white"/><ellipse cx="517" cy="22" rx="27" ry="21" fill="white"/><ellipse cx="540" cy="30" rx="24" ry="15" fill="white"/><ellipse cx="500" cy="41" rx="40" ry="14" fill="white"/></g>
+    <g opacity="0.65"><ellipse cx="32" cy="148" rx="32" ry="17" fill="white"/><ellipse cx="58" cy="137" rx="26" ry="20" fill="white"/><ellipse cx="80" cy="145" rx="23" ry="15" fill="white"/><ellipse cx="42" cy="158" rx="38" ry="14" fill="white"/></g>
+    <g opacity="0.62"><ellipse cx="650" cy="195" rx="36" ry="19" fill="white"/><ellipse cx="672" cy="184" rx="27" ry="22" fill="white"/><ellipse cx="660" cy="208" rx="28" ry="14" fill="white"/></g>
+    <g opacity="0.55"><ellipse cx="655" cy="310" rx="30" ry="16" fill="white"/><ellipse cx="674" cy="299" rx="22" ry="19" fill="white"/><ellipse cx="662" cy="320" rx="24" ry="13" fill="white"/></g>
+    <rect x="0" y="560" width="680" height="240" fill="url(#gso)"/>
+    <rect x="0" y="560" width="680" height="28" fill="#7a4520"/>
+    <path d="M0 564 C16 540 30 528 44 548 C54 528 66 518 78 538 C88 520 100 512 112 530 C122 514 134 506 146 524 C156 508 168 502 180 518 C190 504 202 498 214 514 C224 500 236 494 248 510 C258 496 270 492 282 506 C292 494 304 490 316 502 C326 492 338 488 350 500 C360 490 372 486 384 498 C394 488 406 485 418 496 C428 487 440 484 452 494 C462 485 474 483 486 492 C496 484 508 482 520 490 C530 483 542 481 554 488 C564 482 576 480 588 487 C598 481 610 479 622 485 C632 480 644 478 656 484 C666 479 678 477 690 483 L690 564 L0 564 Z" fill="#1e7a28"/>
+    <path d="M0 574 C14 554 26 546 38 560 C48 546 60 538 70 552 C80 538 92 532 102 544 C112 532 124 526 134 538 C144 528 156 522 166 534 C176 524 188 518 198 530 C208 522 220 516 230 526 C240 518 252 514 262 524 C272 516 284 512 294 520 C304 514 316 510 326 518 C336 512 348 509 358 516 C368 511 380 508 390 514 C400 510 412 507 422 512 C432 509 444 507 454 511 C464 508 476 507 486 510 C496 508 508 507 518 509 C528 508 540 507 550 509 C560 508 572 507 582 509 C592 508 604 508 614 509 C624 508 636 508 646 509 C656 509 668 509 678 510 L690 511 L690 574 L0 574 Z" fill="#28a034" opacity="0.85"/>
+  </svg>
+
+  <div class="espaco-ceu"></div>
+
+  <div class="copa-wrap">
+    <svg class="copa-svg" viewBox="0 0 540 290" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="270" cy="215" rx="252" ry="102" fill="#0d3d18" opacity="0.9"/>
+      <ellipse cx="128" cy="192" rx="116" ry="76" fill="#0f4a1c"/>
+      <ellipse cx="418" cy="184" rx="120" ry="80" fill="#0f4a1c"/>
+      <ellipse cx="270" cy="162" rx="196" ry="96" fill="#145c22"/>
+      <ellipse cx="158" cy="134" rx="106" ry="70" fill="#1a6e2a"/>
+      <ellipse cx="390" cy="126" rx="112" ry="74" fill="#1a6e2a"/>
+      <ellipse cx="270" cy="98" rx="162" ry="82" fill="#1f8035"/>
+      <ellipse cx="196" cy="74" rx="96" ry="62" fill="#237a2e"/>
+      <ellipse cx="350" cy="68" rx="100" ry="64" fill="#237a2e"/>
+      <ellipse cx="270" cy="50" rx="118" ry="54" fill="#2a9040"/>
+      <ellipse cx="216" cy="54" rx="42" ry="22" fill="#30a848" opacity="0.45"/>
+      <ellipse cx="328" cy="48" rx="40" ry="20" fill="#30a848" opacity="0.45"/>
+      <ellipse cx="152" cy="110" rx="36" ry="18" fill="#30a848" opacity="0.35"/>
+      <ellipse cx="396" cy="102" rx="38" ry="20" fill="#30a848" opacity="0.35"/>
+      <ellipse cx="270" cy="30" rx="65" ry="28" fill="#38b852" opacity="0.3"/>
     </svg>
     <div class="nuvem" id="nuvem">
-      <p class="empty-copa">Aguardando as primeiras contribuições...<br>As palavras das escolas aparecerão aqui em tempo real.</p>
+      <p class="copa-vazia">Aguardando contribuições...<br>As palavras aparecerão aqui em tempo real.</p>
     </div>
   </div>
 
-  <!-- TRONCO -->
   <div class="tronco-wrap">
-    <svg viewBox="0 0 200 120" width="210" xmlns="http://www.w3.org/2000/svg">
-      <path d="M80 0 Q75 55 63 120 L137 120 Q125 55 120 0 Z" fill="#5a3010"/>
-      <path d="M90 0 Q87 52 80 120 L106 120 Q100 52 97 0 Z" fill="#7a4f2d" opacity=".6"/>
-      <path d="M85 22 Q96 28 85 38" stroke="#3d200a" fill="none" stroke-width="1.5" opacity=".5"/>
-      <path d="M96 54 Q108 60 96 70" stroke="#3d200a" fill="none" stroke-width="1.5" opacity=".5"/>
-      <text x="100" y="38" text-anchor="middle" font-family="'Playfair Display',serif" font-size="6.2" fill="#f5f0e8" font-weight="700" opacity=".92">Nossas ações</text>
-      <text x="100" y="51" text-anchor="middle" font-family="'Playfair Display',serif" font-size="6.2" fill="#f5f0e8" font-weight="700" opacity=".92">construindo</text>
-      <text x="100" y="64" text-anchor="middle" font-family="'Playfair Display',serif" font-size="6.2" fill="#c9a84c" font-weight="700">nosso legado</text>
+    <svg viewBox="0 0 240 155" width="240" xmlns="http://www.w3.org/2000/svg">
+      <path d="M88 0 C84 22 78 48 70 78 C63 102 56 122 48 155 L192 155 C184 122 177 102 170 78 C162 48 156 22 152 0 Z" fill="#3d1e08"/>
+      <path d="M98 0 C95 24 91 50 85 80 C80 104 75 124 70 155 L116 155 C111 124 106 104 101 80 C95 50 92 24 90 0 Z" fill="#5c2e0e" opacity="0.75"/>
+      <path d="M113 0 C112 24 111 50 110 80 C109 104 108 124 107 155 L123 155 C122 124 121 104 120 80 C119 50 118 24 117 0 Z" fill="#7a4520" opacity="0.4"/>
+      <path d="M86 20 C93 27 101 31 93 44" stroke="#2a1205" fill="none" stroke-width="2" opacity="0.55"/>
+      <path d="M103 56 C111 63 120 67 112 80" stroke="#2a1205" fill="none" stroke-width="2" opacity="0.5"/>
+      <path d="M90 96 C97 102 105 105 98 116" stroke="#2a1205" fill="none" stroke-width="1.8" opacity="0.45"/>
+      <path d="M132 32 C138 38 144 33 140 46" stroke="#2a1205" fill="none" stroke-width="1.8" opacity="0.4"/>
+      <path d="M128 72 C134 78 140 74 137 86" stroke="#2a1205" fill="none" stroke-width="1.5" opacity="0.4"/>
+      <path d="M53 150 C40 144 24 140 8 146" stroke="#3d1e08" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M56 154 C38 151 20 148 4 154" stroke="#3d1e08" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M187 150 C200 144 216 140 232 146" stroke="#3d1e08" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M184 154 C202 151 220 148 236 154" stroke="#3d1e08" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <text x="120" y="34" text-anchor="middle" font-family="Arial,sans-serif" font-size="11.5" fill="#f5f0e2" font-weight="700">Nossas ações</text>
+      <text x="120" y="50" text-anchor="middle" font-family="Arial,sans-serif" font-size="11.5" fill="#f5f0e2" font-weight="700">construindo</text>
+      <text x="120" y="67" text-anchor="middle" font-family="Arial,sans-serif" font-size="12" fill="#f0c84a" font-weight="700">nosso legado</text>
     </svg>
   </div>
 
-  <!-- RAÍZES -->
-  <div class="raizes-wrap">
-    <div class="raizes-titulo">— Nossas raízes —</div>
-    <div class="raizes-grid">
-      <span class="raiz">Respeito</span>
-      <span class="raiz">Honestidade</span>
-      <span class="raiz">Integridade</span>
-      <span class="raiz">Responsabilidade</span>
-      <span class="raiz">Empatia</span>
-      <span class="raiz">Solidariedade</span>
-      <span class="raiz">Transparência</span>
-      <span class="raiz">Justiça</span>
-    </div>
+  <div class="solo-wrap">
+    <svg viewBox="0 0 680 230" preserveAspectRatio="xMidYMin slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gs2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7a4520"/>
+          <stop offset="40%" stop-color="#5c3310"/>
+          <stop offset="100%" stop-color="#3d2008"/>
+        </linearGradient>
+        <path id="r1"  d="M68 204  Q96 178  126 154 Q162 124 202 96  Q248 65  296 40"/>
+        <path id="r2"  d="M114 202 Q140 176 166 152 Q196 123 230 96  Q268 66  306 40"/>
+        <path id="r3"  d="M164 202 Q184 176 206 152 Q230 123 258 96  Q288 67  316 40"/>
+        <path id="r4"  d="M218 202 Q232 174 248 152 Q266 124 286 98  Q308 68  326 40"/>
+        <path id="r5"  d="M260 202 Q270 174 280 152 Q294 124 308 98  Q322 68  334 40"/>
+        <path id="r6"  d="M306 208 Q314 186 320 166 Q328 138 334 110 Q339 74  340 40"/>
+        <path id="r7"  d="M420 202 Q410 174 400 152 Q386 124 372 98  Q358 68  346 40"/>
+        <path id="r8"  d="M452 202 Q438 176 426 152 Q410 124 392 98  Q372 68  354 40"/>
+        <path id="r9"  d="M504 202 Q486 176 468 152 Q446 123 420 96  Q392 67  364 40"/>
+        <path id="r10" d="M566 202 Q540 176 514 152 Q484 123 450 96  Q412 66  374 40"/>
+        <path id="r11" d="M612 204 Q584 178 554 154 Q518 124 478 96  Q432 65  384 40"/>
+      </defs>
+
+      <rect x="0" y="40" width="680" height="190" fill="url(#gs2)"/>
+      <rect x="0" y="40" width="680" height="26" fill="#7a4520"/>
+      <path d="M0 44 C14 22 26 12 38 30 C46 14 56 6 66 24 C74 8 84 2 94 18 C102 4 112 -2 122 14 C130 0 140 -5 150 10 C158 -1 168 -6 178 8 C186 -2 196 -7 206 6 C214 -4 224 -8 234 4 C242 -6 252 -9 262 2 C270 -8 280 -10 290 0 C298 -9 308 -11 318 -4 C326 -10 336 -13 346 -7 C354 -12 364 -14 374 -9 C382 -13 392 -14 402 -11 C410 -14 420 -15 430 -13 C438 -14 448 -15 458 -14 C466 -15 476 -15 486 -14 C494 -14 504 -14 514 -13 C522 -14 532 -14 542 -13 C550 -13 560 -13 570 -12 C578 -13 590 -12 602 -11 C612 -12 624 -11 636 -10 C648 -11 660 -10 672 -9 L680 -9 L680 44 L0 44 Z" fill="#1e7a28"/>
+      <path d="M0 52 C12 34 22 26 30 40 C38 26 48 18 56 32 C64 18 74 12 82 26 C90 14 100 8 108 20 C116 8 126 3 134 15 C142 5 152 0 160 10 C168 1 178 -4 186 7 C194 -2 204 -6 212 4 C220 -4 230 -8 238 2 C246 -6 256 -9 264 -1 C272 -8 282 -10 290 -4 C298 -9 308 -12 316 -7 C324 -11 334 -13 342 -9 C350 -12 360 -14 368 -11 C376 -13 386 -14 394 -13 C402 -14 412 -15 420 -14 C428 -14 438 -15 446 -15 C454 -15 464 -15 472 -14 C480 -14 490 -14 498 -13 C506 -14 516 -14 524 -13 C532 -13 542 -13 550 -12 C558 -13 568 -13 578 -12 C588 -12 600 -11 612 -10 C624 -11 636 -10 648 -9 C660 -10 672 -9 680 -8 L680 52 L0 52 Z" fill="#28a034" opacity="0.85"/>
+
+      <path d="M296 40 Q248 65 202 96 Q162 124 126 154 Q96 178 68 204"   stroke="#4a2808" stroke-width="5"    fill="none" stroke-linecap="round"/>
+      <path d="M306 40 Q268 66 230 96 Q196 123 166 152 Q140 176 114 202"  stroke="#4a2808" stroke-width="6"    fill="none" stroke-linecap="round"/>
+      <path d="M316 40 Q288 67 258 96 Q230 123 206 152 Q184 176 164 202"  stroke="#4a2808" stroke-width="7.5"  fill="none" stroke-linecap="round"/>
+      <path d="M326 40 Q308 68 286 98 Q266 124 248 152 Q232 174 218 202"  stroke="#4a2808" stroke-width="9"    fill="none" stroke-linecap="round"/>
+      <path d="M334 40 Q322 68 308 98 Q294 124 280 152 Q270 174 260 202"  stroke="#4a2808" stroke-width="10.5" fill="none" stroke-linecap="round"/>
+      <path d="M340 40 Q339 74 334 110 Q328 138 320 166 Q314 186 306 208" stroke="#4a2808" stroke-width="13"   fill="none" stroke-linecap="round"/>
+      <path d="M346 40 Q358 68 372 98 Q386 124 400 152 Q410 174 420 202"  stroke="#4a2808" stroke-width="10.5" fill="none" stroke-linecap="round"/>
+      <path d="M354 40 Q372 68 392 98 Q410 124 426 152 Q438 176 452 202"  stroke="#4a2808" stroke-width="9"    fill="none" stroke-linecap="round"/>
+      <path d="M364 40 Q392 67 420 96 Q446 123 468 152 Q486 176 504 202"  stroke="#4a2808" stroke-width="7.5"  fill="none" stroke-linecap="round"/>
+      <path d="M374 40 Q412 66 450 96 Q484 123 514 152 Q540 176 566 202"  stroke="#4a2808" stroke-width="6"    fill="none" stroke-linecap="round"/>
+      <path d="M384 40 Q432 65 478 96 Q518 124 554 154 Q584 178 612 204"  stroke="#4a2808" stroke-width="5"    fill="none" stroke-linecap="round"/>
+
+      <text font-family="Arial,sans-serif" font-size="11"   font-weight="700" fill="#fceea0"><textPath href="#r1"  startOffset="5%"><tspan dy="-5">Cordialidade</tspan></textPath></text>
+      <text font-family="Arial,sans-serif" font-size="11.5" font-weight="700" fill="#f0e0a0"><textPath href="#r2"  startOffset="5%"><tspan dy="-5">Encantamento</tspan></textPath></text>
+      <text font-family="Arial,sans-serif" font-size="12"   font-weight="700" fill="#b8e8c8"><textPath href="#r3"  startOffset="5%"><tspan dy="-5">Ética</tspan></textPath></text>
+      <text font-family="Arial,sans-serif" font-size="12.5" font-weight="700" fill="#b8e8c8"><textPath href="#r4"  startOffset="5%"><tspan dy="-5">Respeito</tspan></textPath></text>
+      <text font-family="Arial,sans-serif" font-size="13"   font-weight="700" fill="#a8d8f8"><textPath href="#r5"  startOffset="5%"><tspan dy="-5">Credibilidade</tspan></textPath></text>
+      <text font-family="Arial,sans-serif" font-size="13"   font-weight="700" fill="#f5d040"><textPath href="#r6"  startOffset="5%"><tspan dy="-6">Alegria</tspan></textPath></text>
+      <text font-family="Arial,sans-serif" font-size="13"   font-weight="700" fill="#a8d8f8"><textPath href="#r7"  startOffset="5%"><tspan dy="-5">Inovação</tspan></textPath></text>
+      <text font-family="Arial,sans-serif" font-size="12.5" font-weight="700" fill="#b8e8c8"><textPath href="#r8"  startOffset="5%"><tspan dy="-5">Ousadia</tspan></textPath></text>
+      <text font-family="Arial,sans-serif" font-size="12"   font-weight="700" fill="#b8e8c8"><textPath href="#r9"  startOffset="5%"><tspan dy="-5">Protagonismo</tspan></textPath></text>
+      <text font-family="Arial,sans-serif" font-size="11.5" font-weight="700" fill="#f0e0a0"><textPath href="#r10" startOffset="5%"><tspan dy="-5">Diversidade</tspan></textPath></text>
+      <text font-family="Arial,sans-serif" font-size="11"   font-weight="700" fill="#fceea0"><textPath href="#r11" startOffset="5%"><tspan dy="-5">Responsabilidade</tspan></textPath></text>
+    </svg>
   </div>
 
 </div>
@@ -148,72 +215,60 @@ body{
 
 <script>
 // ─── CONFIGURAÇÃO DO FIREBASE ───────────────────────────────────────────────
-// Substitua pelo URL do seu projeto Firebase (mesmo valor do participacao.html)
-const FIREBASE_URL = 'https://console.firebase.google.com/u/0/project/arvore-etica/database/arvore-etica-default-rtdb/data/~2F';
+// Substitua pelo URL do seu projeto Firebase
+const FIREBASE_URL = 'https://arvore-etica-default-rtdb.firebaseio.com';
 // ────────────────────────────────────────────────────────────────────────────
 
-const CORES=[
-  '#f5f0e8','#c9e8b0','#ffd97d','#a8ddd8','#f9b99f',
-  '#d4e8c2','#ffe8b0','#c2d4f0','#f5c6e0','#b8e8c8',
-  '#ffffff','#e8f5c8','#ffeebb','#cce8ff','#ffe0cc'
-];
-const SIZES=['0.75rem','0.85rem','0.95rem','1.05rem','1.2rem','1.35rem','1.5rem','1.7rem','1.9rem','2.1rem','2.4rem'];
+const CORES = ['#ffffff','#f8f8e8','#e0f8e8','#fff4a0','#c8e8ff','#ffe4b0','#d4f8d8','#fffac0','#d8f0ff','#f8e8d0','#eaffd8','#fff4d0','#e0f4ff','#fffff0','#d8ffe8'];
 let exibidas = new Set();
 
-function tamanho(freq, max){
-  const idx = Math.min(Math.floor((freq/Math.max(max,1))*(SIZES.length-1)), SIZES.length-1);
-  return SIZES[Math.max(idx,2)];
+function tamanho(freq, max) {
+  const pct = freq / Math.max(max, 1);
+  if (pct > 0.8) return '22px';
+  if (pct > 0.6) return '20px';
+  if (pct > 0.4) return '18px';
+  return '16px';
 }
 
-async function atualizar(){
-  try{
-    const r = await fetch(FIREBASE_URL+'/contribuicoes.json');
+async function atualizar() {
+  try {
+    const r = await fetch(FIREBASE_URL + '/contribuicoes.json');
     const dados = await r.json();
     const lista = dados ? Object.values(dados) : [];
-
-    const freq={};
-    lista.forEach(c=>(c.palavras||[]).forEach(p=>{
-      const k=p.charAt(0).toUpperCase()+p.slice(1).toLowerCase();
-      freq[k]=(freq[k]||0)+1;
+    const freq = {};
+    lista.forEach(c => (c.palavras||[]).forEach(p => {
+      const k = p.charAt(0).toUpperCase() + p.slice(1).toLowerCase();
+      freq[k] = (freq[k]||0) + 1;
     }));
-
-    const totalP=Object.values(freq).reduce((s,v)=>s+v,0);
-    const escolas=new Set(lista.map(x=>x.escola.toLowerCase())).size;
-    document.getElementById('lP').textContent=totalP;
-    document.getElementById('lE').textContent=escolas;
-    document.getElementById('lPe').textContent=lista.length;
-
-    const entradas=Object.entries(freq).sort((a,b)=>b[1]-a[1]);
-    const maxF=entradas.length>0?entradas[0][1]:1;
-    const novas=entradas.filter(([p])=>!exibidas.has(p));
-
-    const nuvem=document.getElementById('nuvem');
-    if(entradas.length===0) return;
-    if(nuvem.querySelector('.empty-copa')) nuvem.innerHTML='';
-
-    novas.forEach(([palavra,fv],i)=>{
-      const el=document.createElement('span');
-      el.className='palavra';
-      el.textContent=palavra;
-      el.style.color=CORES[Math.floor(Math.random()*CORES.length)];
-      el.style.fontSize=tamanho(fv,maxF);
-      el.style.animationDelay=(i*.1)+'s';
+    const entradas = Object.entries(freq).sort((a,b)=>b[1]-a[1]);
+    const maxF = entradas.length > 0 ? entradas[0][1] : 1;
+    const novas = entradas.filter(([p]) => !exibidas.has(p));
+    const nuvem = document.getElementById('nuvem');
+    if (entradas.length === 0) return;
+    if (nuvem.querySelector('.copa-vazia')) nuvem.innerHTML = '';
+    novas.forEach(([palavra, fv], i) => {
+      const el = document.createElement('span');
+      el.className = 'palavra';
+      el.textContent = palavra;
+      el.style.color = CORES[Math.floor(Math.random() * CORES.length)];
+      el.style.fontSize = tamanho(fv, maxF);
+      el.style.animationDelay = (i * 0.1) + 's';
       nuvem.appendChild(el);
       exibidas.add(palavra);
     });
-
-    // atualizar tamanhos de palavras já exibidas
-    entradas.forEach(([palavra,fv])=>{
-      nuvem.querySelectorAll('.palavra').forEach(el=>{
-        if(el.textContent===palavra) el.style.fontSize=tamanho(fv,maxF);
+    entradas.forEach(([palavra, fv]) => {
+      nuvem.querySelectorAll('.palavra').forEach(el => {
+        if (el.textContent === palavra) el.style.fontSize = tamanho(fv, maxF);
       });
     });
-
-  }catch(e){console.warn(e);}
+  } catch(e) { console.warn(e); }
 }
 
 atualizar();
-setInterval(atualizar,8000);
+setInterval(atualizar, 8000);
+</script>
+</body>
+</html>
 </script>
 </body>
 </html>
